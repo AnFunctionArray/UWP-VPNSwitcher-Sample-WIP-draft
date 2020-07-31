@@ -4,7 +4,7 @@ For the `InitiateStorage` the idea is to be able to change the current server wi
 
 The above functions directly operates on the `rasphone.pbk` which is located in %localappdata%\Packages then the package identifier which can be obtained from the console output in VS then \LocalState.
 
-The "SET0" is normally the result of the connection operation - if it's 1 you are screwed. Check your event viewer in Windows Logs\Applications for Source:RasClient and diagnose.
+The "SET0" is normally the result of the connection operation - if it's 1 you are screwed (0 is success). Check your event viewer in Windows Logs\Applications for Source:RasClient and diagnose.
 
 And also as I've mentioned in the beginning of the source code - you first need to change a specific `#if 0` to `#if 1` in order to set up the VPN profile and Vault entry with the password.
 
