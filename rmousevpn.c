@@ -96,7 +96,7 @@ L"fr.superfreevpn.com"*/
 };
 
 static const wchar_t* const serversPINs[1] = { // L"", //for sstp which didn't work
-L"6003",
+L"4801",
 /*L"2588",
 L"2208",
 L"7343",
@@ -751,9 +751,9 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 			WaitForSingleObject(1[hEvent], 1000) == WAIT_OBJECT_0 || WaitForSingleObject(hReadyExternal, 0) != WAIT_OBJECT_0 ?
 			dialup() : 0;
 #endif
-		const wchar_t* pCurrServer;
-		const wchar_t* const* pNextServerPointer = getnextserver(pCurrServer = WindowsGetStringRawBuffer(string, &nocare)); //retrieve next server from the array
-		const wchar_t* const pNextServer = *pNextServerPointer;
+		const wchar_t* const pCurrServer = servers[0];
+		//const wchar_t* const* pNextServerPointer = //getnextserver(pCurrServer = WindowsGetStringRawBuffer(string, &nocare)); //retrieve next server from the array
+		const wchar_t* const pNextServer = servers[0];//*pNextServerPointer;
 		system("PAUSE");
 		wprintf(L"%s\n", pNextServer);
 		system("PAUSE");
