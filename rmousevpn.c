@@ -1,6 +1,5 @@
-//Note on first iteration you need to create a local app profile
-//for this search "change to 1 to create your first (app local) profile"
-//and first time run use this
+
+enum CLICK_GO_TO_DEFINITION_HERE_FOR_ENTRY_POINT;
 
 #ifndef FIRSTPASS
 #define COBJMACROS
@@ -126,6 +125,7 @@ static(ReleaseOutter)(in) struct __x_ABI_CWindows_CUI_CXaml_CIApplicationOverrid
 { printf("outteraddref\n"); InterlockedDecrement64(&in->count); in->count ? 0 : (printf("gotcna\n"), IInspectable_Release(inner)); }
 
 static const wchar_t* const* getnextserver(const wchar_t* Target) {
+	extern somethin;
 	bool bConnected = false; const wchar_t* const* pServer = servers + sizeof servers / sizeof pServer - 1;
 	for (; pServer != servers - 1; --pServer)
 	{
@@ -307,10 +307,11 @@ __x_ABI_CWindows_CApplicationModel_CActivation_CILaunchActivatedEventArgs* args;
 	extern (__stdcall stdcallmainras)(unused);
 	return S_OK;
 }
-
-
-static HRESULT(InvokeApp)(This, p) __x_ABI_CWindows_CUI_CXaml_CIApplicationInitializationCallback* This; //another activation shennanigans
+static HRESULT(InvokeApp)(This, p) __x_ABI_CWindows_CUI_CXaml_CIApplicationInitializationCallback* This;
 __x_ABI_CWindows_CUI_CXaml_CIApplicationInitializationCallbackParams* p; {
+	{
+		"another activation shennanigans";
+	}
 	HSTRING_HEADER header; HSTRING string;
 	__x_ABI_CWindows_CUI_CXaml_CIApplicationFactory* pAppFact;
 
@@ -337,6 +338,9 @@ __x_ABI_CWindows_CUI_CXaml_CIApplicationInitializationCallbackParams* p; {
 	EventRegistrationToken evnttoken;	//memcpy(outter.chBufferExtra, &inner->lpVtbl + 1, sizeof outter.chBufferExtra);
 
 	__x_ABI_CWindows_CUI_CXaml_CIApplication_add_UnhandledException(pApp, &excimpl, &evnttoken);
+	{
+		"below we branch our program";
+	}
 	CreateThread(0, 0, stdcallmainras, pApp, 0, 0);
 	return S_OK;
 }
@@ -378,9 +382,12 @@ static __stdcall dialup()
 	SetEvent(hReadyExternal);//, currentConection = next;*/
 }
 
-(__stdcall stdcallmainrastoonew)(pApp) __x_ABI_CWindows_CUI_CXaml_CIApplication* pApp; //uhm here I tried mimicking the VPN Settings
-//but without much luck so this is unused
+(__stdcall stdcallmainrastoonew)(pApp) __x_ABI_CWindows_CUI_CXaml_CIApplication* pApp;
 {
+	{
+		"uhm here I tried mimicking the VPN Settings"
+			"but without much luck so this is unused";
+	}
 	IInspectable* pVpnObjInspect; HSTRING string;
 	ULONG idCount; IID* pIdds; HSTRING_HEADER header;
 	IRasMediaManager* pRasMan;
@@ -393,32 +400,34 @@ static __stdcall dialup()
 	printf("%x\n", IInspectable_QueryInterface(pVpnObjInspect, &IID_RasMediaManager, &pRasMan)), IInspectable_Release(pVpnObjInspect);
 
 }
-
-//The idea here is to replace the servername inside the rasphone.pbk
-//without triggering any other settings changes
-//which would have happened had we used the VPN API
-//NOTE: The rasphone.pbk is local to the application
 static InitiateStorage(lpVtbl, pServerName, pReplaceWith) void* lpVtbl; WCHAR* pServerName; WCHAR* pReplaceWith;
-{HSTRING string; HSTRING_HEADER header; WindowsCreateStringReference(RuntimeClass_Windows_Storage_ApplicationData,
-	sizeof RuntimeClass_Windows_Storage_ApplicationData / sizeof(WCHAR) - 1, &header, &string);
-__x_ABI_CWindows_CStorage_CIApplicationDataStatics* pAppStats; RoGetActivationFactory(string,
-	&IID___x_ABI_CWindows_CStorage_CIApplicationDataStatics, &pAppStats);
-__x_ABI_CWindows_CStorage_CIApplicationData* pAppData;
-__x_ABI_CWindows_CStorage_CIApplicationDataStatics_get_Current(pAppStats, &pAppData);
-__x_ABI_CWindows_CStorage_CIApplicationDataStatics_Release(pAppStats);
-__x_ABI_CWindows_CStorage_CIStorageFolder* pLocalFolder;
-__x_ABI_CWindows_CStorage_CIApplicationData_get_LocalFolder(pAppData, &pLocalFolder);
-__x_ABI_CWindows_CStorage_CIApplicationData_Release(pAppData);
-__FIAsyncOperation_1_Windows__CStorage__CStorageFile* pStorageFileOperation;
-WindowsCreateStringReference(L"rasphone.pbk", sizeof L"rasphone.pbk" / sizeof(WCHAR) - 1, &header, &string);
-__x_ABI_CWindows_CStorage_CIStorageFolder_GetFileAsync(pLocalFolder, string, &pStorageFileOperation);
-union {
-	__FIAsyncOperationCompletedHandler_1_Windows__CStorage__CStorageFile Handler;
-	struct CompleteHandlerStorageFile Storage;
-} un;
-un.Handler.lpVtbl = lpVtbl;
-((__FIAsyncOperationCompletedHandler_1_Windows__CStorage__CStorageFileVtbl*)lpVtbl)->Invoke
-= InvokeStorageFileCompleteHandler;
+{
+	{
+		"The idea here is to replace the servername inside the rasphone.pbk"
+			"without triggering any other settings changes"
+			"which would have happened had we used the VPN API"
+			"NOTE: The rasphone.pbk is local to the application";
+	}
+	HSTRING string; HSTRING_HEADER header; WindowsCreateStringReference(RuntimeClass_Windows_Storage_ApplicationData,
+		sizeof RuntimeClass_Windows_Storage_ApplicationData / sizeof(WCHAR) - 1, &header, &string);
+	__x_ABI_CWindows_CStorage_CIApplicationDataStatics* pAppStats; RoGetActivationFactory(string,
+		&IID___x_ABI_CWindows_CStorage_CIApplicationDataStatics, &pAppStats);
+	__x_ABI_CWindows_CStorage_CIApplicationData* pAppData;
+	__x_ABI_CWindows_CStorage_CIApplicationDataStatics_get_Current(pAppStats, &pAppData);
+	__x_ABI_CWindows_CStorage_CIApplicationDataStatics_Release(pAppStats);
+	__x_ABI_CWindows_CStorage_CIStorageFolder* pLocalFolder;
+	__x_ABI_CWindows_CStorage_CIApplicationData_get_LocalFolder(pAppData, &pLocalFolder);
+	__x_ABI_CWindows_CStorage_CIApplicationData_Release(pAppData);
+	__FIAsyncOperation_1_Windows__CStorage__CStorageFile* pStorageFileOperation;
+	WindowsCreateStringReference(L"rasphone.pbk", sizeof L"rasphone.pbk" / sizeof(WCHAR) - 1, &header, &string);
+	__x_ABI_CWindows_CStorage_CIStorageFolder_GetFileAsync(pLocalFolder, string, &pStorageFileOperation);
+	union {
+		__FIAsyncOperationCompletedHandler_1_Windows__CStorage__CStorageFile Handler;
+		struct CompleteHandlerStorageFile Storage;
+	} un;
+	un.Handler.lpVtbl = lpVtbl;
+	((__FIAsyncOperationCompletedHandler_1_Windows__CStorage__CStorageFileVtbl*)lpVtbl)->Invoke
+		= InvokeStorageFileCompleteHandler;
 #else
 struct CompleteHandlerStorageFile {
 	__FIAsyncOperationCompletedHandler_1_Windows__CStorage__CStorageFile;
@@ -515,8 +524,13 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 #endif
 }
 
-(__stdcall stdcallmainras)(pApp) __x_ABI_CWindows_CUI_CXaml_CIApplication* pApp; //here is the main logic
+enum CLICK_GO_TO_DEFINITION_HERE_FOR_ENTRY_POINT {};
+
+(__stdcall stdcallmainras)(pApp) __x_ABI_CWindows_CUI_CXaml_CIApplication* pApp;
 {
+	{
+		"here is the main logic";
+	}
 	ULONG idCount; IID* pIdds; HSTRING_HEADER header;
 	__x_ABI_CWindows_CNetworking_CVpn_CIVpnManagementAgent* pVpnMan;
 	__x_ABI_CWindows_CUI_CXaml_CIWindow* pWindow;
@@ -540,6 +554,10 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 
 	//volatile int a = a / 0;
 
+	{
+		"query VpnManagementAgent interface";
+	}
+
 	WindowsCreateStringReference(RuntimeClass_Windows_Networking_Vpn_VpnManagementAgent,
 		sizeof RuntimeClass_Windows_Networking_Vpn_VpnManagementAgent / sizeof(WCHAR) - 1,
 		&header, &string), printf("%x\n", RoActivateInstance(string, &pVpnObjInspect)), /*WindowsDeleteString(string),*/ //system("PAUSE"),IInspectable_GetIids(pVpnObjInspect,&idCount,&pIdds),
@@ -551,13 +569,20 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 
 	__x_ABI_CWindows_CSecurity_CCredentials_CIPasswordCredential* pPassCred;
 
-#if 0//change to 1 to create your first (app local) profile
-	//and local vault
+#define initial_launch_barrier(a) 0
+#if initial_launch_barrier("change to 1 (above) to create your first (app local) profile" \
+	"and local vault")
+
+	//query new native profiles
 	WindowsCreateStringReference(RuntimeClass_Windows_Networking_Vpn_VpnNativeProfile,
 		sizeof RuntimeClass_Windows_Networking_Vpn_VpnNativeProfile / sizeof(WCHAR) - 1,
 		&header, &string), RoActivateInstance(string, &pVpnObjInspect), WindowsDeleteString(string), IInspectable_GetIids(pVpnObjInspect, &idCount, &pIdds),
 		IInspectable_QueryInterface(pVpnObjInspect, &IID___x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile2, &pNativeProfile2),
 		IInspectable_Release(pVpnObjInspect);
+
+	{
+		"make it visible in the Settings UI";
+	}
 
 	__x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile2_put_RequireVpnClientAppUI(pNativeProfile2, true),
 
@@ -568,6 +593,10 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 
 	__x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile_put_RoutingPolicyType(pNativeProfile, VpnRoutingPolicyType_ForceAllTrafficOverVpn);
 
+
+	{
+		"set first server";
+	}
 	__x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile_get_Servers(pNativeProfile, &hServers);
 
 	WindowsCreateStringReference(servers[0], wcslen(servers[0]), &header, &string);
@@ -584,8 +613,14 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 
 	//__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_put_RememberCredentials(pProfile2, true);
 
+
+	//https://docs.microsoft.com/en-us/windows-server/remote/remote-access/vpn/always-on-vpn/always-on-vpn-technology-overview
+
 	__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_put_AlwaysOn(pProfile2, false);
 
+	{
+		"add the profile";
+	}
 	printf("%x\n", __x_ABI_CWindows_CNetworking_CVpn_CIVpnManagementAgent_AddProfileFromObjectAsync(pVpnMan, pProfile2, &pVpnManErr));
 	__FIAsyncOperation_1_Windows__CNetworking__CVpn__CVpnManagementErrorStatus_put_Completed(pVpnManErr, &ProfilesRetrieverHandler);
 	WaitForSingleObject(hReady, INFINITE);
@@ -593,12 +628,19 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 
 	printf("profile created\n");
 
+	{
+		"query the password vault";
+	}
 	WindowsCreateStringReference(RuntimeClass_Windows_Security_Credentials_PasswordVault,
 		sizeof RuntimeClass_Windows_Security_Credentials_PasswordVault / sizeof(WCHAR) - 1,
 		&header, &string), RoActivateInstance(string, &pVpnObjInspect), WindowsDeleteString(string), //IInspectable_GetIids(pVpnObjInspect, &idCount, &pIdds),
 		IInspectable_QueryInterface(pVpnObjInspect, &IID___x_ABI_CWindows_CSecurity_CCredentials_CIPasswordVault, &pPassCredVault),
 		IInspectable_Release(pVpnObjInspect);
 
+
+	{
+		"query a password credential";
+	}
 	WindowsCreateStringReference(RuntimeClass_Windows_Security_Credentials_PasswordCredential,
 		sizeof RuntimeClass_Windows_Security_Credentials_PasswordCredential / sizeof(WCHAR) - 1,
 		&header, &string), RoActivateInstance(string, &pVpnObjInspect), WindowsDeleteString(string), //IInspectable_GetIids(pVpnObjInspect, &idCount, &pIdds),
@@ -607,14 +649,17 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 
 	WindowsCreateStringReference(L"vpnCredentials",
 		sizeof L"vpnCredentials" / sizeof(WCHAR) - 1,
-		&header, &string),
+		&header, &string);
 
-		__x_ABI_CWindows_CSecurity_CCredentials_CIPasswordCredential_put_Resource(pPassCred, string),
+	{
+		"Use Credentials Manager (Web Credentials) - this is the website address added";
+	}
+	__x_ABI_CWindows_CSecurity_CCredentials_CIPasswordCredential_put_Resource(pPassCred, string),
 
 		//wprintf(L"pass used - %s\n", serversPINs[pNextServerPointer - servers]);
-	WindowsCreateStringReference(serversPINs[0],
-		sizeof pass / sizeof(WCHAR) - 1,
-		&header, &string),
+		WindowsCreateStringReference(serversPINs[0],
+			sizeof pass / sizeof(WCHAR) - 1,
+			&header, &string),
 
 		__x_ABI_CWindows_CSecurity_CCredentials_CIPasswordCredential_put_Password(pPassCred, string),
 
@@ -624,21 +669,22 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 
 		__x_ABI_CWindows_CSecurity_CCredentials_CIPasswordCredential_put_UserName(pPassCred, string),
 
-		__x_ABI_CWindows_CSecurity_CCredentials_CIPasswordVault_Add(pPassCredVault,pPassCred),
+		__x_ABI_CWindows_CSecurity_CCredentials_CIPasswordVault_Add(pPassCredVault, pPassCred),
 
-	system("PAUSE");
+		system("PAUSE");
 	__x_ABI_CWindows_CUI_CXaml_CIApplication_Exit(pApp);
 #endif
 	auto bCompleted;
 	//for (bool bCompleted;;Sleep(10000))
 		//if (WaitForSingleObject(hReadyExternal, 0) != WAIT_OBJECT_0) //if hReadyExternal is non signaled
-	//the above was used to synchronize with my main app
-	//in this example however we'll simply switch to a new server and exit
+	{"the above was used to synchronize with my main app"
+		"in this example however we'll simply switch to a new server and exit";
+	}
 	{
 		bCompleted = true;
 		ProfilesRetrieverHandler.lpVtbl->Invoke = InvokeCollect,
 			wprintf(L"retrieving profiles\n");
-		//actually this retrieves only the first profile (linked to the application)
+		{"actually this retrieves only the first profile(linked to the application)"; }
 		__x_ABI_CWindows_CNetworking_CVpn_CIVpnManagementAgent_GetProfilesAsync(pVpnMan, &pProfiles),
 			__FIAsyncOperation_1___FIVectorView_1_Windows__CNetworking__CVpn__CIVpnProfile_put_Completed(pProfiles, &ProfilesRetrieverHandler),
 			//__FIAsyncOperation_1___FIVectorView_1_Windows__CNetworking__CVpn__CIVpnProfile_Release(pProfiles),
@@ -653,7 +699,7 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 		ProfilesRetrieverHandler.lpVtbl->Invoke = InvokeError,
 
 			wprintf(L"disconnecting profile\n");
-		//disconnect the profile in case it's connected
+		{"disconnect the profile in case it's connected"; }
 		__x_ABI_CWindows_CNetworking_CVpn_CIVpnManagementAgent_DisconnectProfileAsync(pVpnMan, pProfile, &pVpnManErr),
 			__FIAsyncOperation_1_Windows__CNetworking__CVpn__CVpnManagementErrorStatus_put_Completed(pVpnManErr, &ProfilesRetrieverHandler);
 		/*if (WaitForSingleObject(hReady, 180000) == WAIT_TIMEOUT)
@@ -688,6 +734,7 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 		__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_put_ProfileName(pProfile2, string);*/
 
 		//pProfile->lpVtbl = pProfile2->lpVtbl,
+		{"query the native profile from the IVpnProfile"; }
 		printf("%x\n", IInspectable_QueryInterface(pProfile, &IID___x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile, &pNativeProfile));
 
 #if 0 //junk
@@ -729,6 +776,7 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 		system("PAUSE");
 #endif
 
+		{"get current server and print it"; }
 		printf("%x\n", __x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile_get_Servers(pNativeProfile, &hServers));
 
 		printf("%x\n", __FIVector_1_HSTRING_GetAt(hServers, 0, &string)), //get first server (my app only uses one)
@@ -751,6 +799,7 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 			WaitForSingleObject(1[hEvent], 1000) == WAIT_OBJECT_0 || WaitForSingleObject(hReadyExternal, 0) != WAIT_OBJECT_0 ?
 			dialup() : 0;
 #endif
+		{"here we are supposed to query the next server in the list but currently only 1 server is implemented"; }
 		const wchar_t* const pCurrServer = servers[0];
 		//const wchar_t* const* pNextServerPointer = //getnextserver(pCurrServer = WindowsGetStringRawBuffer(string, &nocare)); //retrieve next server from the array
 		const wchar_t* const pNextServer = servers[0];//*pNextServerPointer;
@@ -758,6 +807,7 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 		wprintf(L"%s\n", pNextServer);
 		system("PAUSE");
 
+		{"apply the new server directly to the file"; }
 		InitiateStorage(ProfilesRetrieverHandler.lpVtbl, pCurrServer, pNextServer); //fix-ups 
 
 		__x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile_Release(pNativeProfile);
@@ -766,7 +816,10 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 
 		ProfilesRetrieverHandler.lpVtbl->Invoke = InvokeCollect,
 			wprintf(L"retrieving profiles\n");
-		//cache changes
+		{
+			"cache changes"
+				"by retrieving the profile again";
+		}
 		__x_ABI_CWindows_CNetworking_CVpn_CIVpnManagementAgent_GetProfilesAsync(pVpnMan, &pProfiles),
 			__FIAsyncOperation_1___FIVectorView_1_Windows__CNetworking__CVpn__CIVpnProfile_put_Completed(pProfiles, &ProfilesRetrieverHandler),
 			//__FIAsyncOperation_1___FIVectorView_1_Windows__CNetworking__CVpn__CIVpnProfile_Release(pProfiles),
@@ -829,7 +882,10 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 
 		__FIVectorView_1_Windows__CSecurity__CCredentials__CPasswordCredential* pPassCredView;
 
-		//authenticate
+		{"authenticate"
+
+			"query IPasswordCredential";
+		}
 
 		WindowsCreateStringReference(RuntimeClass_Windows_Security_Credentials_PasswordCredential,
 			sizeof RuntimeClass_Windows_Security_Credentials_PasswordCredential / sizeof(WCHAR) - 1,
@@ -837,9 +893,11 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 			IInspectable_QueryInterface(pVpnObjInspect, &IID___x_ABI_CWindows_CSecurity_CCredentials_CIPasswordCredential, &pPassCred),
 			IInspectable_Release(pVpnObjInspect);
 
-			WindowsCreateStringReference(L"vpnCredentials",
-				sizeof L"vpnCredentials" / sizeof(WCHAR) - 1,
-				&header, &string),
+		WindowsCreateStringReference(L"vpnCredentials",
+			sizeof L"vpnCredentials" / sizeof(WCHAR) - 1,
+			&header, &string),
+
+			"set Website Address from the Credential Manager ",
 
 			__x_ABI_CWindows_CSecurity_CCredentials_CIPasswordCredential_put_Resource(pPassCred, string),
 
@@ -854,6 +912,8 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 				sizeof user / sizeof(WCHAR) - 1,
 				&header, &string),
 
+			"and user-name",
+
 			__x_ABI_CWindows_CSecurity_CCredentials_CIPasswordCredential_put_UserName(pPassCred, string),
 
 			__x_ABI_CWindows_CSecurity_CCredentials_CIPasswordCredential_RetrievePassword(pPassCred),
@@ -862,18 +922,22 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 			wprintf(L"connectingg\n");
 		ProfilesRetrieverHandler.lpVtbl->Invoke = InvokeError,
 			__x_ABI_CWindows_CNetworking_CVpn_CIVpnManagementAgent_ConnectProfileWithPasswordCredentialAsync(pVpnMan, pProfile, pPassCred, &pVpnManErr);
-			//__x_ABI_CWindows_CNetworking_CVpn_CIVpnManagementAgent_ConnectProfileAsync(pVpnMan, pProfile, &pVpnManErr),
-			__FIAsyncOperation_1_Windows__CNetworking__CVpn__CVpnManagementErrorStatus_put_Completed(pVpnManErr, &ProfilesRetrieverHandler);
-		/*if (WaitForSingleObject(hReady, 180000) == WAIT_TIMEOUT)
-		{
-			__FIAsyncOperation_1_Windows__CNetworking__CVpn__CVpnManagementErrorStatus_put_Completed(pVpnManErr, stub);
-			__FIAsyncOperation_1_Windows__CNetworking__CVpn__CVpnManagementErrorStatus_Release(pVpnManErr);* /
-			SetEvent(hConnect);
+		//__x_ABI_CWindows_CNetworking_CVpn_CIVpnManagementAgent_ConnectProfileAsync(pVpnMan, pProfile, &pVpnManErr),
+		__FIAsyncOperation_1_Windows__CNetworking__CVpn__CVpnManagementErrorStatus_put_Completed(pVpnManErr, &ProfilesRetrieverHandler);
 
-			while (WaitForSingleObject(hConnect, 0) == WAIT_OBJECT_0) Sleep(10000);
-			/*bCompleted = false;
-			printf("taimed out\n");
-		}*/
+		{
+			"that is basically!";;;
+		}
+	/*if (WaitForSingleObject(hReady, 180000) == WAIT_TIMEOUT)
+	{
+		__FIAsyncOperation_1_Windows__CNetworking__CVpn__CVpnManagementErrorStatus_put_Completed(pVpnManErr, stub);
+		__FIAsyncOperation_1_Windows__CNetworking__CVpn__CVpnManagementErrorStatus_Release(pVpnManErr);* /
+		SetEvent(hConnect);
+
+		while (WaitForSingleObject(hConnect, 0) == WAIT_OBJECT_0) Sleep(10000);
+		/*bCompleted = false;
+		printf("taimed out\n");
+	}*/
 		WaitForSingleObject(hReady, INFINITE),
 			ResetEvent(hReady);
 
@@ -929,6 +993,8 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 		{ {QueryInterface,AddRef,Release,InvokeError}
 } }; IInspectable* pVpnObjInspect; HSTRING string;
 
+	"activation logic";
+
 	__x_ABI_CWindows_CUI_CXaml_CIApplicationStatics* pAppStats;
 	WindowsCreateStringReference(RuntimeClass_Windows_UI_Xaml_Application,
 		sizeof RuntimeClass_Windows_UI_Xaml_Application / sizeof(WCHAR) - 1,
@@ -943,22 +1009,22 @@ __FIAsyncOperationWithProgress_2_Windows__CStorage__CStreams__CIBuffer_UINT32_pu
 	//stdcallmainras();
 //__x_ABI_CWindows_croini 
 	return 0;
-	//rest is junk
-		/*WindowsCreateStringReference(RuntimeClass_Windows_Networking_Vpn_VpnNativeProfile,
-		sizeof RuntimeClass_Windows_Networking_Vpn_VpnNativeProfile/sizeof(WCHAR)-1,
-		&header, &string), RoActivateInstance(string,&pVpnObjInspect),WindowsDeleteString(string),IInspectable_GetIids(pVpnObjInspect,&idCount,&pIdds),
-		IInspectable_QueryInterface(pVpnObjInspect,	&IID___x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile,&pProfile),
-		IInspectable_Release(pVpnObjInspect),
-		WindowsCreateStringReference(L"MyConnection",sizeof L"MyConnection"/sizeof(WCHAR)-1,&header, &string),
-		__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_put_ProfileName(pProfile,string),WindowsDeleteString(string),
-		__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_put_RememberCredentials(pProfile, true),
-		__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_put_AlwaysOn(pProfile, true),
-		printf("%x\n",__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_QueryInterface(pProfile,&IID___x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile,&pNativeProfile)),
-		__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_Release(pProfile),
-		__x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile_get_Servers(pNativeProfile, &hServers),
-		WindowsCreateStringReference(L"ustx1.pointtoserver.com",sizeof L"ustx1.pointtoserver.com"/sizeof(WCHAR)-1,&header, &string),
-		__FIVector_1_HSTRING_Append(hServers,string),WindowsDeleteString(string),
-		printf("%x\n",__
+	"rest is junk";
+	/*WindowsCreateStringReference(RuntimeClass_Windows_Networking_Vpn_VpnNativeProfile,
+	sizeof RuntimeClass_Windows_Networking_Vpn_VpnNativeProfile/sizeof(WCHAR)-1,
+	&header, &string), RoActivateInstance(string,&pVpnObjInspect),WindowsDeleteString(string),IInspectable_GetIids(pVpnObjInspect,&idCount,&pIdds),
+	IInspectable_QueryInterface(pVpnObjInspect,	&IID___x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile,&pProfile),
+	IInspectable_Release(pVpnObjInspect),
+	WindowsCreateStringReference(L"MyConnection",sizeof L"MyConnection"/sizeof(WCHAR)-1,&header, &string),
+	__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_put_ProfileName(pProfile,string),WindowsDeleteString(string),
+	__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_put_RememberCredentials(pProfile, true),
+	__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_put_AlwaysOn(pProfile, true),
+	printf("%x\n",__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_QueryInterface(pProfile,&IID___x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile,&pNativeProfile)),
+	__x_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_Release(pProfile),
+	__x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile_get_Servers(pNativeProfile, &hServers),
+	WindowsCreateStringReference(L"ustx1.pointtoserver.com",sizeof L"ustx1.pointtoserver.com"/sizeof(WCHAR)-1,&header, &string),
+	__FIVector_1_HSTRING_Append(hServers,string),WindowsDeleteString(string),
+	printf("%x\n",__
 //		system("PAUSE"),_ABI_CWindows_CNetworking_CVpn_CIVpnProfile_QueryInterface(pNativeProfile,&IID___x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile2,&pNativeProfile2)),
 		croini _CWindows_CNetworking_CVpn_CIVpnNativeProfile_Release(pNativeProfile),
 		__x_ABI_CWindows_CNetworking_CVpn_CIVpnNativeProfile2_put_RequireVpnClientAppUI(pNativeProfile2, true),
