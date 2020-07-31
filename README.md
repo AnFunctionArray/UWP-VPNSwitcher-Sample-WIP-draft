@@ -13,3 +13,7 @@ It's possible to do that dynamically - but I'm leaving this to you to figure out
 Oh and another thing - the test VPN I'm using requires a preshared key L2TP so after creating the profile you need to go to settings and manually select (L2TP with preshared key) and set it to `superfreevpn.com`.
 
 I don't think there is an automated option for the above. There is an option to set preshared key authentication for both the user and the tunnel but it doesn't seem to be an option to set said key.
+
+Main logic - check function `stdcallmainras`. Other is activation, misc.
+
+When we are talking about the Credential Manager I mean the app in Windows.
